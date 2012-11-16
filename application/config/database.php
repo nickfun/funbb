@@ -70,11 +70,11 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => 'localhost',
-			'database' => 'database',
+			'database' => 'funbb',
 			'username' => 'root',
-			'password' => '',
+			'password' => 'securedatabase',
 			'charset'  => 'utf8',
-			'prefix'   => '',
+			'prefix'   => 'fbb_',
 		),
 
 		'pgsql' => array(
