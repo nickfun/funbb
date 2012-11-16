@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'url' => '',
+	'url' => 'http://localhost',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -53,7 +53,7 @@ return array(
 	|
 	*/
 
-	'key' => 'YourSecretKeyGoesHere!',
+	'key' => 'bluh321BLUH098u',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return array(
 	|
 	*/
 
-	'profiler' => false,
+	'profiler' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -176,7 +176,8 @@ return array(
 		'Lang'       	=> 'Laravel\\Lang',
 		'Log'        	=> 'Laravel\\Log',
 		'Memcached'  	=> 'Laravel\\Memcached',
-		'Paginator'  	=> 'Laravel\\Paginator',
+		//'Paginator'  	=> 'Laravel\\Paginator',
+		'Paginator'  	=> 'Paginator',
 		'Profiler'  	=> 'Laravel\\Profiling\\Profiler',
 		'URL'        	=> 'Laravel\\URL',
 		'Redirect'   	=> 'Laravel\\Redirect',
@@ -193,6 +194,28 @@ return array(
 		'URI'        	=> 'Laravel\\URI',
 		'Validator'  	=> 'Laravel\\Validator',
 		'View'       	=> 'Laravel\\View',
+
+		// for bootstrap bundle
+		'Alert'                 => 'Bootstrapper\\Alert',
+		'Badges'                => 'Bootstrapper\\Badges',
+		'Breadcrumbs'           => 'Bootstrapper\\Breadcrumbs',
+		'Buttons'               => 'Bootstrapper\\Buttons',
+		'ButtonGroup'           => 'Bootstrapper\\ButtonGroup',
+		'ButtonToolbar'         => 'Bootstrapper\\ButtonToolbar',
+		'Carousel'              => 'Bootstrapper\\Carousel',
+		'DropdownButton'        => 'Bootstrapper\\DropdownButton',
+		'Form'                  => 'Bootstrapper\\Form',
+		'Helpers'               => 'Bootstrapper\\Helpers',
+		'Icons'                 => 'Bootstrapper\\Icons',
+		'Labels'                => 'Bootstrapper\\Labels',
+		'Navbar'                => 'Bootstrapper\\Navbar',
+		'Navigation'            => 'Bootstrapper\\Navigation',
+		'Paginator'             => 'Bootstrapper\\Paginator',
+		'Progress'              => 'Bootstrapper\\Progress',
+		'SplitDropdownButton'   => 'Bootstrapper\\SplitDropdownButton',
+		'Tabbable'              => 'Bootstrapper\\Tabbable',
+		'Tables'                => 'Bootstrapper\\Tables',
+		'Typeahead'             => 'Bootstrapper\\Typeahead', 
 	),
 
 );
