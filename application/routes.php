@@ -32,9 +32,29 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('home.index');
+Route::get('/', function() {
+	// get a list of all the boards
+	$boardlist = DB::table('boards')
+		->order_by('position', 'asc')
+		->get();
+	return View::make('board-list')->with('boardlist', $boardlist);
+});
+
+Route::get('board/(:num)', function($board_id) {
+	// get all the threads for this board
+	$threadlist = DB::table('threads')
+		->where('id', '=', $board_id)
+		->order_by('updated_at', 'desc')
+		->paginate(10);
+	return View::make('thread-list')->with('threadlist', $threadlist);
+});
+
+Route::get('thread/(:num)', function($thread_id) {
+	$postlist = DB::table('posts')
+		->where('thread_id', '=', $thread_id)
+		->order_by('created_date', 'asc')
+		->paginate('10');
+	return View::make('view-thread')->with('postlist', $postlist);
 });
 
 /*

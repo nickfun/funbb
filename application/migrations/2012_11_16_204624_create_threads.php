@@ -1,6 +1,6 @@
 <?php
 
-class Create_Posts {
+class Create_Threads {
 
 	/**
 	 * Make changes to the database.
@@ -10,20 +10,22 @@ class Create_Posts {
 	public function up()
 	{
 		//
-		Schema::create('posts', function($table) {
+		Schema::create('threads', function($table) {
 			$table->increments('id');
+			$table->integer('board_id');
 			$table->integer('user_id');
-			$table->integer('thread_id');
-			$table->string('body');
+			$table->string('subject');
+			$table->integer('postcount');
 			$table->timestamps();
-		});
+		} );
 
-		// make a default post
-		DB::table('posts')->insert(array(
+		// make a default thread
+		DB::table('threads')->insert(array(
 			'id'			=> 1,
+			'board_id'		=> 1,
 			'user_id'		=> 1,
-			'thread_id'		=> 1,
-			'body'			=> 'This is the first post and it is pretty cool :-D',
+			'subject'		=> 'First Thread!',
+			'postcount'		=> 1,
 			'created_at'	=> DB::raw('NOW()'),
 			'updated_at'	=> DB::raw('NOW()'),
 		));
@@ -37,7 +39,7 @@ class Create_Posts {
 	public function down()
 	{
 		//
-		Schema::drop('posts');
+		Schema::drop('threads');
 	}
 
 }
