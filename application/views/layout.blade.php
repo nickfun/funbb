@@ -22,6 +22,16 @@
 
             @yield('content')
 
+            <div class="row">
+                <div class="span12">
+                    <p><a href="{{URL::to('/')}}">Homepage</a></p>
+                </div>
+            </div>
+
+            @if( Auth::guest() )
+                @include('forms.register-user')
+            @endif
+
         </div>
 
     </body>

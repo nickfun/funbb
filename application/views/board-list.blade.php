@@ -18,8 +18,8 @@ FunBB Homepage
             @foreach( $boardlist as $board )
             <div class="row">
                 <div class="span1 well"> 
-                    <a href="{{ URL::to("board/$board->id") }}">
-                      <h3> &gt; &gt; &gt; </h3> 
+                    <a href="{{ URL::to('board/' . $board->id ) }}">
+                      <h3> ==&gt; </h3> 
                     </a>
                 </div>
                 <div class="span10 well ">
@@ -29,8 +29,5 @@ FunBB Homepage
                 </div>
             </div>
             @endforeach
-
-
-            <p><a href="{{URL::to('/') }}">Refresh Board List</a></p>
 
 @endsection

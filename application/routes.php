@@ -53,8 +53,9 @@ Route::get('/', function() {
 Route::get('board/(:num)', function($board_id) {
 	// get all the threads for this board
 	$threadlist = DB::table('threads')
-		->where('id', '=', $board_id)
-		->order_by('updated_at', 'desc')
+		->join('users', 'threads.user_id', '=', 'users.id')
+		->where('threads.id', '=', $board_id)
+		->order_by('threads.updated_at', 'desc')
 		->paginate(10);
 	// get this board
 	$board = Board::find($board_id);
@@ -70,10 +71,14 @@ Route::get('board/(:num)', function($board_id) {
  */
 Route::get('thread/(:num)', function($thread_id) {
 	$postlist = DB::table('posts')
-		->where('thread_id', '=', $thread_id)
-		->order_by('created_date', 'asc')
+		->join('users', 'posts.user_id', '=', 'users.id')
+		->where('posts.thread_id', '=', $thread_id)
+		->order_by('posts.created_at', 'asc')
 		->paginate('10');
-	return View::make('post-list')->with('postlist', $postlist);
+	$thread = Thread::find( $thread_id );
+	return View::make('post-list')
+		->with('postlist', $postlist)
+		->with('thread', $thread);
 });
 
 /*

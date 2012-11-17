@@ -14,4 +14,8 @@ class Thread extends Eloquent {
 	public function board() {
 		return $this->belongs_to('user', 'board');
 	}
+
+	public function user() {
+		return $this->has_one('user');
+	}
 }
