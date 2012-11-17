@@ -32,6 +32,11 @@
 |
 */
 
+/**
+ * The Homepage
+ *
+ * List all the boards
+ */
 Route::get('/', function() {
 	// get a list of all the boards
 	$boardlist = DB::table('boards')
@@ -40,21 +45,35 @@ Route::get('/', function() {
 	return View::make('board-list')->with('boardlist', $boardlist);
 });
 
+/**
+ * View a board
+ *
+ * List all the threads in the board
+ */
 Route::get('board/(:num)', function($board_id) {
 	// get all the threads for this board
 	$threadlist = DB::table('threads')
 		->where('id', '=', $board_id)
 		->order_by('updated_at', 'desc')
 		->paginate(10);
-	return View::make('thread-list')->with('threadlist', $threadlist);
+	// get this board
+	$board = Board::find($board_id);
+	return View::make('thread-list')
+		->with('threadlist', $threadlist)
+		->with('board', $board);
 });
 
+/**
+ * View a thread
+ *
+ * List all the posts in the thread
+ */
 Route::get('thread/(:num)', function($thread_id) {
 	$postlist = DB::table('posts')
 		->where('thread_id', '=', $thread_id)
 		->order_by('created_date', 'asc')
 		->paginate('10');
-	return View::make('view-thread')->with('postlist', $postlist);
+	return View::make('post-list')->with('postlist', $postlist);
 });
 
 /*
