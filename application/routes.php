@@ -33,6 +33,12 @@
 */
 
 /**
+ * @todo All three of these routes should be put into a controller
+ * for now they can stay here until I add more complexity to handle admin
+ * features
+ */
+
+/**
  * The Homepage
  *
  * List all the boards
@@ -121,6 +127,11 @@ Route::controller('thread');
 | uncaught exception thrown in the application.
 |
 */
+
+/**
+ * @todo These error pages are the default that came with Laravel, need to 
+ * setup something specific to FunBB
+ */
 
 Event::listen('404', function()
 {
