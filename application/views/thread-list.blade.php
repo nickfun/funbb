@@ -6,7 +6,10 @@ Viewing Board: {{$board->description}}
 
 @section('content')
 
-	<h1>{{$board->description}} </h1>
+	<div class="page-header">
+		<h1> {{$board->name}} </h1>
+		<small>{{$board->description}}</small>
+	</div>
 
 	@foreach( $threadlist->results as $thread )
 	<div class="row">
@@ -31,11 +34,11 @@ Viewing Board: {{$board->description}}
 
 	@if( Auth::check() )
 	<h3>Post a New Thread</h3>
-	<form method="post" action="{{URL::to('thread/new')}}">
+	<form class="form-horizontal" method="post" action="{{URL::to('thread/new')}}">
 		<input type="hidden" name="board_id" value="{{$board->id}}">
 		<div class="control-group">
-			<label class="control-label" for="subject">Thread Subject</label>
-			<div cass="controls">
+			<label class="control-label" for="subject">Subject</label>
+			<div class="controls">
 				<input type="text" name="subject" placeholder="Subject...">
 			</div>
 		</div>

@@ -46,6 +46,38 @@ Route::get('/', function() {
 });
 
 /**
+ * Create a board
+ */
+Route::post('board-new', function () {
+	$data = Input::get();
+	$rules = array(
+		'name'			=> 'required',
+		'description'	=> 'required',
+		'position'		=> 'integer',
+	);
+	$val = Validator::make($data, $rules);
+	if( $val->fails() ) {
+		Session::flash('status', 'new-board-fail');
+		return Redirect::to('/')
+			->with_input()
+			->with_errors($val);
+	}
+	else
+	{
+		if( !isset($data['position'])) {
+			$data['position'] = 1;
+		}
+		// make the board
+		$board = new Board();
+		$board->name = $data['name'];
+		$board->description = $data['description'];
+		$board->position 	= $data['position'];
+		$board->save();
+		return Redirect::to('/');
+	}
+});
+
+/**
  * View a board
  *
  * List all the threads in the board

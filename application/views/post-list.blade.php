@@ -15,7 +15,7 @@ Viewing a thread
 	@foreach( $postlist->results as $post )
 		<div class="row">
 			<div class="span8 well">
-				{{$post->body}}
+				{{nl2br($post->body)}}
 			</div>
 			<div class="span3">
 				<ul class="post-info">
