@@ -6,7 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
+        <link rel="stylesheet" href="{{URL::to_asset('css/funbb.css')}}">
         {{ Asset::container('bootstrapper')->styles(); }}
+
         @yield('style-sheets')
         <style>
         body {

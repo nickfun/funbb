@@ -19,7 +19,7 @@ FunBB Homepage
             <div class="row">
                 <div class="span1 well"> 
                     <a href="{{ URL::to('board/' . $board->id ) }}">
-                      <h3> ==&gt; </h3> 
+                      <h3> &raquo; </h3> 
                     </a>
                 </div>
                 <div class="span10 well ">

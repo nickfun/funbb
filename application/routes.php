@@ -64,27 +64,13 @@ Route::get('board/(:num)', function($board_id) {
 		->with('board', $board);
 });
 
-/**
- * View a thread
- *
- * List all the posts in the thread
- */
-Route::get('thread/(:num)', function($thread_id) {
-	$postlist = DB::table('posts')
-		->join('users', 'posts.user_id', '=', 'users.id')
-		->where('posts.thread_id', '=', $thread_id)
-		->order_by('posts.created_at', 'asc')
-		->paginate('10');
-	$thread = Thread::find( $thread_id );
-	return View::make('post-list')
-		->with('postlist', $postlist)
-		->with('thread', $thread);
-});
+Route::get('/thread/(:any)', 'thread@view');
 
 //====
 // Controllers
 //====
 Route::controller('auth');
+Route::controller('thread');
 
 /*
 |--------------------------------------------------------------------------
