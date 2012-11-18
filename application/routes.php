@@ -81,6 +81,11 @@ Route::get('thread/(:num)', function($thread_id) {
 		->with('thread', $thread);
 });
 
+//====
+// Controllers
+//====
+Route::controller('auth');
+
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers

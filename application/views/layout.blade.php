@@ -29,7 +29,11 @@
             </div>
 
             @if( Auth::guest() )
-                @include('forms.register-user')
+            <div class="row">
+                <div class="span12 alert">
+                    <a href="{{URL::to('auth/login')}}">You need to login</a>
+                </div>
+            </div>
             @endif
 
         </div>

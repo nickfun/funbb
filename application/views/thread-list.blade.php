@@ -27,14 +27,4 @@ Viewing Board: {{$board->description}}
 
 	{{ $threadlist->links() }}
 
-	@if( Auth::guest() )
-	<div class="alert">
-		<strong>You can not start a thread because you are not logged in</strong>
-	</div>
-	@else
-	<div class="alert alert-success">
-		POST A THREAD
-	</div>
-	@endif
-
 @endsection
