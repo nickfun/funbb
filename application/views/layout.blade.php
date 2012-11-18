@@ -20,13 +20,61 @@
 
         <div class="container">
 
-            @yield('content')
+            {{-- Setup the Navigation Bar --}}
+            <ul class="nav nav-pills">
+                <li><a href="{{URL::to('/')}}">Home</a></li>
+                <li><a href="{{URL::to('auth/users')}}">User list</a></li>
+                @if( Auth::guest() )
+                <li><a href="{{URL::to('auth/login')}}">Login</a></li>
+                <li><a href="{{URL::to('auth/register')}}">Register</a></li>
+                @else
+                <li><a href="{{URL::to('auth/logout')}}">Logout</a></li>
+                @endif
+            </ul>
 
+            {{-- Setup the little notification widgets --}}
+
+            @if( Session::get('status') == 'login-success')
             <div class="row">
-                <div class="span12">
-                    <p><a href="{{URL::to('/')}}">Homepage</a></p>
+                <div class="span6 alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    You are now logged in!
                 </div>
             </div>
+            @endif
+
+            @if( Session::get('status') == 'login-fail')
+            <div class="row">
+                <div class="span6 alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    Login Failed!
+                </div>
+            </div>
+            @endif
+
+            @if( Session::get('status') == 'logout')
+            <div class="row">
+                <div class="span6 alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    You are now logged out
+                </div>
+            </div>
+            @endif
+
+            @if( Session::get('status') == 'register-success')
+            <div class="row">
+                <div class="span6 alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    You have registered! You are now logged in
+                </div>
+            </div>
+            @endif
+
+            {{-- SHOW THE REAL CONTENTS HERE --}}
+
+            @yield('content')
+
+            {{-- Misc stuff after the contents --}}
 
             @if( Auth::guest() )
             <div class="row">

@@ -16,13 +16,13 @@ FunBB Homepage
             </div>
 
             @foreach( $boardlist as $board )
-            <div class="row-fluid">
+            <div class="row">
                 <div class="span1 well"> 
                     <a href="{{ URL::to('board/' . $board->id ) }}">
                       <h3> ==&gt; </h3> 
                     </a>
                 </div>
-                <div class="span11 well ">
+                <div class="span10 well ">
                     <a href="{{ URL::to("board/$board->id") }}">
                         <h3>{{$board->description}}</h3>
                     </a>

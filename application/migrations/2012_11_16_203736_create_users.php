@@ -26,7 +26,7 @@ class Create_Users {
 			'username' 	=> 'admin',
 			'password'	=> Hash::make('admin'),
 			'email'		=> 'admin@funbb.com',
-			'posts'		=> 0,
+			'posts'		=> 1,
 			'isAdmin'	=> 1,
 			'created_at'=> DB::raw('NOW()'),
 			'updated_at'=> DB::raw('NOW()'),

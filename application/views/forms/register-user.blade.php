@@ -1,3 +1,10 @@
+@layout('layout')
+
+@section('top-title')
+Register a new User
+@endsection
+
+@section('content')
 <form class="form-horizontal" action="{{ URL::to('auth/register') }}" method="post">
 	<fieldset>
 		<legend>Register a new user</legend>
@@ -17,3 +24,4 @@
 		{{ Form::token() }}
 	</fieldset>
 </form>
+@endsection
