@@ -54,9 +54,12 @@ Route::get('board/(:num)', function($board_id) {
 	// get all the threads for this board
 	$threadlist = DB::table('threads')
 		->join('users', 'threads.user_id', '=', 'users.id')
-		->where('threads.id', '=', $board_id)
+		->where('threads.board_id', '=', $board_id)
 		->order_by('threads.updated_at', 'desc')
-		->paginate(10);
+		->paginate(10, array(
+			'threads.id', 'threads.user_id', 'threads.subject',
+			'threads.postcount','threads.created_at', 'users.username',
+		));
 	// get this board
 	$board = Board::find($board_id);
 	return View::make('thread-list')
@@ -142,5 +145,5 @@ Route::filter('csrf', function()
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::to('login');
+	if (Auth::guest()) return Redirect::to('auth/login');
 });

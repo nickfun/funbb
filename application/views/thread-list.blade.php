@@ -27,4 +27,36 @@ Viewing Board: {{$board->description}}
 
 	{{ $threadlist->links() }}
 
+	{{-- Form to make a new thread --}}
+
+	@if( Auth::check() )
+	<h3>Post a New Thread</h3>
+	<form method="post" action="{{URL::to('thread/new')}}">
+		<input type="hidden" name="board_id" value="{{$board->id}}">
+		<div class="control-group">
+			<label class="control-label" for="subject">Thread Subject</label>
+			<div cass="controls">
+				<input type="text" name="subject" placeholder="Subject...">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="body">Your Reply</label>
+			<div class="controls">
+				<textarea class="replybox" name="body" placeholder="Type Something..."></textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn btn-primary">Post Reply</button>
+			</div>
+		</div>
+	</form>
+	@else
+	<div class="row">
+		<div class="span12 alert alert-error">
+			You can not post a new thread because you are not logged in
+		</div>
+	</div>
+	@endif
+
 @endsection

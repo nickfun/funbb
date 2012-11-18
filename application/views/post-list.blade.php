@@ -7,7 +7,7 @@ Viewing a thread
 @section('content')
 
 	<div class="page-header well">
-		<h1>{{$thread->subject}}</h1>
+		<h1> {{$thread->subject}} </h1>
 		<small>Started {{$thread->created_at}}
 		Has {{$thread->postcount}} {{Str::plural('post', $thread->postcount)}}</small>
 	</div>

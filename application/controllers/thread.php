@@ -11,6 +11,16 @@ class Thread_Controller extends Base_Controller {
 	public $restful = true;
 
 	/**
+	 * Constructor. Setup my filters
+	 */
+	public function __construct() {
+		parent::__construct();
+
+		$this->filter('before', 'auth')
+			->only(array('post_reply', 'post_new'));
+	}
+
+	/**
 	 * Default action. Redirect to homepage
 	 */
 	public function get_index() {
@@ -27,6 +37,7 @@ class Thread_Controller extends Base_Controller {
 			->order_by('posts.created_at', 'asc')
 			->paginate('10');
 		$thread = Thread::find( $thread_id );
+		//return Response::json(array($thread, $postlist));
 		return View::make('post-list')
 			->with('postlist', $postlist)
 			->with('thread', $thread);
@@ -36,11 +47,6 @@ class Thread_Controller extends Base_Controller {
 	 * Process posting a reply to an existing thread
 	 */
 	public function post_reply() {
-		// must be logged in
-		// @todo: set this up with a filter
-		if( Auth::guest() ) {
-			return Redirect::to('/');
-		}
 
 		// validate data
 		$data = Input::get();
@@ -75,89 +81,50 @@ class Thread_Controller extends Base_Controller {
 		}
 	}
 
-
-//=======================================================
-	/** 
-	 * Display the login form
-	 */
-	public function get_login() {
-		return View::make('forms.login');
-	}
-
-	/** 
-	 * Process the login form
-	 */
-	public function post_login() {
-		// process the form I guess!
-		$creds = array(
-			'username'	=> Input::get('username'),
-			'password'	=> Input::get('password'),
-		);
-		if( Auth::attempt($creds) ) {
-			Session::flash('status', 'login-success');
-			return Redirect::to('/');
-		} else {
-			Session::flash('status', 'login-fail');
-			return Redirect::to('auth/login');
-		}
-	}
-
-	/**
-	 * Logout a user
-	 */
-	public function get_logout() {
-		Auth::logout();
-		Session::flash('status', 'logout');
+	public function get_new() {
 		return Redirect::to('/');
 	}
 
 	/**
-	 * Display the register form
+	 * Make a new thread
 	 */
-	public function get_register() {
-		return View::make('forms.register-user');
-	}
-
-	/**
-	 * Process the register form
-	 */
-	public function post_register() {
-		$rules = array(
-			'username'	=> 'required',
-			'email'		=> 'required|email|unique:users',
-			'password'	=> 'required|same:password-confirm',
-			'password-confirm'	=> 'required',
-		);
-
+	public function post_new() {
 		$data = Input::get();
-
+		$rules = array(
+			'board_id'	=> 'required',
+			'subject'	=> 'required',
+			'body'		=> 'required',
+		);
 		$val = Validator::make($data, $rules);
 		if( $val->fails() ) {
-			//Input::flash(); // save form data for view
-			return Redirect::to('auth/register')
+			return Redirect::to('/')
 				->with_input()
 				->with_errors($val);
-		} else {
-			$data = Input::get(); // im not sure if Validator is destructive to the data it gets passed so I'll just get it again from the input class
-
-			$user = new User();
-			$user->username = $data['username'];
-			$user->email 	= $data['email'];
-			$user->password = Hash::make( $data['password']);
-			$user->isAdmin = 0;
-			$user->save();
-			// login the user right now
-			Auth::login( $user->id );
-
-			Session::flash('status', 'register-success');
-			return Redirect::to('/');
 		}
+		else
+		{
+			// make the thread!
+			$user = Auth::user();
+			$thread = new Thread();
+			$thread->board_id 	= $data['board_id'];
+			$thread->user_id 	= $user->id;
+			$thread->subject 	= $data['subject'];
+			$thread->postcount 	= 1;
+			$thread->save();
+			// make the 1st post
+			$post = new Post();
+			$post->user_id 	= $user->id;
+			$post->thread_id = $thread->id;
+			$post->body 	= $data['body'];
+			$post->save();
+			// update the users post count
+			$user->posts++;
+			$user->save();
+
+			return Redirect::to('thread/view/' . $thread->id );
+		}
+
+		return Response::json($data);
 	}
 
-	public function get_users() {
-		$userlist = DB::table('users')
-			->order_by('username', 'asc')
-			->paginate(3);
-		return View::make('user-list')->with('userlist', $userlist);
-	}
 }
