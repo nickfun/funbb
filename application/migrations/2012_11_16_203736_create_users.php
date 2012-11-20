@@ -14,10 +14,12 @@ class Create_Users {
 			$table->increments('id');
 			$table->string('username', 64);
 			$table->string('password', 64);
-			$table->string('email', 100);
+			$table->string('email', 100)->unique();
 			$table->integer('posts');
 			$table->integer('isAdmin');
 			$table->timestamps();
+			// primary key is id, second index on username
+			$table->index('username');
 		});
 
 		// make a default admin account

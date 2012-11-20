@@ -17,6 +17,8 @@ class Create_Threads {
 			$table->string('subject');
 			$table->integer('postcount');
 			$table->timestamps();
+			// primary on id, index on board_id
+			$table->index('board_id');
 		} );
 
 		// make a default thread

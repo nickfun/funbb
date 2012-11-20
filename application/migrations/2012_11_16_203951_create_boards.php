@@ -16,6 +16,8 @@ class Create_Boards {
 			$table->string('description');
 			$table->integer('position');
 			$table->timestamps();
+			// primary index on ID, other index on position
+			$table->index('position');
 		});
 
 		// make a default board

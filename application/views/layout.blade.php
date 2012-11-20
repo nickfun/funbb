@@ -23,16 +23,21 @@
         <div class="container">
 
             {{-- Setup the Navigation Bar --}}
-            <ul class="nav nav-pills">
-                <li><a href="{{URL::to('/')}}">Home</a></li>
-                <li><a href="{{URL::to('auth/users')}}">User list</a></li>
-                @if( Auth::guest() )
-                <li><a href="{{URL::to('auth/login')}}">Login</a></li>
-                <li><a href="{{URL::to('auth/register')}}">Register</a></li>
-                @else
-                <li><a href="{{URL::to('auth/logout')}}">Logout</a></li>
-                @endif
-            </ul>
+            <div class="navbar navbar-inverse">
+                <div class="navbar-inner">
+                    <a class="brand" href="#">FunBB:</a>
+                    <ul class="nav">
+                        <li><a href="{{URL::to('/')}}">Home</a></li>
+                        <li><a href="{{URL::to('auth/users')}}">User list</a></li>
+                        @if( Auth::guest() )
+                        <li><a href="{{URL::to('auth/login')}}">Login</a></li>
+                        <li><a href="{{URL::to('auth/register')}}">Register</a></li>
+                        @else
+                        <li><a href="{{URL::to('auth/logout')}}">Logout</a></li>
+                        @endif
+                    </ul>
+                </div>
+            </div>
 
             {{-- Setup the little notification widgets --}}
 
@@ -78,13 +83,6 @@
 
             {{-- Misc stuff after the contents --}}
 
-            @if( Auth::guest() )
-            <div class="row">
-                <div class="span12 alert">
-                    <a href="{{URL::to('auth/login')}}">You need to login</a>
-                </div>
-            </div>
-            @endif
 
         </div>
 

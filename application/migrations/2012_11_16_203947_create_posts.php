@@ -16,6 +16,8 @@ class Create_Posts {
 			$table->integer('thread_id');
 			$table->string('body');
 			$table->timestamps();
+			// primary is ID, another index on thread_id since we mostly selecty bu thread_id
+			$table->index('thread_id');
 		});
 
 		// make a default post
