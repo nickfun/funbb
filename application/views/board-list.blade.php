@@ -28,7 +28,7 @@ FunBB Homepage
 
     @if( Auth::check() && Auth::user()->isadmin )
     <h3>Make a new Board</h3>
-    <form class="form-horizontal" method="post" action="{{URL::to('board-new')}}">
+    <form class="form-horizontal" method="post" action="{{URL::to('board/new')}}">
         <div class="control-group">
             <label class="control-label" for="name">Board Name</label>
             <div class="controls">

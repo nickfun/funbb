@@ -38,73 +38,23 @@
  * features
  */
 
-/**
- * The Homepage
- *
- * List all the boards
- */
-Route::get('/', function() {
-	// get a list of all the boards
-	$boardlist = DB::table('boards')
-		->order_by('position', 'asc')
-		->get();
-	return View::make('board-list')->with('boardlist', $boardlist);
-});
 
-/**
- * Create a board
- */
-Route::post('board-new', function () {
-	$data = Input::get();
-	$rules = array(
-		'name'			=> 'required',
-		'description'	=> 'required',
-		'position'		=> 'integer',
-	);
-	$val = Validator::make($data, $rules);
-	if( $val->fails() ) {
-		Session::flash('status', 'new-board-fail');
-		return Redirect::to('/')
-			->with_input()
-			->with_errors($val);
-	}
-	else
-	{
-		if( !isset($data['position'])) {
-			$data['position'] = 1;
-		}
-		// make the board
-		$board = new Board();
-		$board->name = $data['name'];
-		$board->description = $data['description'];
-		$board->position 	= $data['position'];
-		$board->save();
-		return Redirect::to('/');
-	}
-});
 
-/**
- * View a board
- *
- * List all the threads in the board
- */
-Route::get('board/(:num)', function($board_id) {
-	// get all the threads for this board
-	$threadlist = DB::table('threads')
-		->join('users', 'threads.user_id', '=', 'users.id')
-		->where('threads.board_id', '=', $board_id)
-		->order_by('threads.updated_at', 'desc')
-		->paginate(10, array(
-			'threads.id', 'threads.user_id', 'threads.subject',
-			'threads.postcount','threads.created_at', 'users.username',
-		));
-	// get this board
-	$board = Board::find($board_id);
-	return View::make('thread-list')
-		->with('threadlist', $threadlist)
-		->with('board', $board);
-});
+//===
+// Routes have precidece in the order they are declared here in routes.php
+// so define routes here that will override or supplement URLS in the 
+// controllers defined below
+//===
 
+// The homepage, list all the boards 
+Route::get('/', 'board@listAll');
+// view the threads in one board
+Route::get('/board/(:num)', 'board@view');
+
+/*
+	instead of a URL being /thread/view/123
+	it can now be:		   /thread/123
+*/
 Route::get('/thread/(:any)', 'thread@view');
 
 //====
@@ -112,6 +62,7 @@ Route::get('/thread/(:any)', 'thread@view');
 //====
 Route::controller('auth');
 Route::controller('thread');
+Route::controller('board');
 
 /*
 |--------------------------------------------------------------------------

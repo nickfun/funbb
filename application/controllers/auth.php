@@ -6,6 +6,7 @@
  * Lets users register, login, logout, basic stuff
  */
 class Auth_Controller extends Base_Controller {
+	
 	public $restful = true;
 
 	/**
