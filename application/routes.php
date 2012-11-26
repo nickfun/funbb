@@ -32,16 +32,8 @@
 |
 */
 
-/**
- * @todo All three of these routes should be put into a controller
- * for now they can stay here until I add more complexity to handle admin
- * features
- */
-
-
-
 //===
-// Routes have precidece in the order they are declared here in routes.php
+// Routes have precedence in the order they are declared here in routes.php
 // so define routes here that will override or supplement URLS in the 
 // controllers defined below
 //===
