@@ -1,4 +1,4 @@
-@layout('layout')
+@layout('template')
 
 @section('top-title')
 List of all the users
