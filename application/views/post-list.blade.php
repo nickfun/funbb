@@ -20,7 +20,7 @@ Viewing a thread
 			<div class="span3">
 				<ul class="post-info">
 					<li><strong>{{$post->username}}</strong></li>
-					<li>{{$post->created_at}}</li>
+					<li>{{date('F jS, Y h:i:s', strtotime($post->created_at))}}</li>
 				</ul>
 			</div>
 		</div>

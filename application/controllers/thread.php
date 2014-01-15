@@ -76,6 +76,8 @@ class Thread_Controller extends Base_Controller {
 			$thread = Thread::find( $data['thread_id'] );
 			$thread->postcount++;
 			$thread->save();
+			// notification for user
+					Session::flash('status', 'new-post');
 			// we are done, go back to the thread
 			return Redirect::to('thread/view/' . $data['thread_id']);
 		}

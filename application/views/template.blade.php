@@ -76,6 +76,15 @@
                 </div>
             </div>
             @endif
+            
+            @if( Session::get('status') == 'new-post')
+            <div class="row">
+            	<div class="span6 alert alert-success">
+            		<button type="button" class="close" data-dismiss="alert">x</button>
+            		You made a new post!
+           		</div>
+       		</div>
+       		@endif
 
             {{-- SHOW THE REAL CONTENTS HERE --}}
 
